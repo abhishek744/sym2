@@ -1,6 +1,4 @@
-<script>
-
-    /* Google map
+ /* Google map
     ------------------------------------------------*/
     var map = '';
     var center;
@@ -134,4 +132,3 @@
         $('.tm-current-year').text(new Date().getFullYear());                           
     });
 
-</script>             
