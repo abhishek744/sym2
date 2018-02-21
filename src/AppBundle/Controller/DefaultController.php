@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Doctrine\DBAL\Drvier\Connection;    
 
 
 class DefaultController extends Controller
@@ -30,7 +31,6 @@ class DefaultController extends Controller
      */
     public function home(Request $request){
         return $this->render('default/home.html.twig');
-
     }
 
 
@@ -80,6 +80,14 @@ class DefaultController extends Controller
                 )
                 ->add('save', SubmitType::class)
                 ->getForm();
+
+        if($form->isSubmitted() && $form->isValid()){
+            $enquiry = $form->getData();
+
+            //$cm = $this->getDoctrine()->getManager();
+            $cm->persist($enquiry);
+            $cm->flush();
+        }
 
         return $this->render('default/home_custom.html.twig', array(
             'form'=> $form->createView(),
